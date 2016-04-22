@@ -1786,9 +1786,9 @@
 				font-size: 1.1em;
 			}
 
-				input[type="button"].big,
-				input[type="submit"].big,
-				input[type="reset"].big,
+				input[type="button"].small,
+				input[type="submit"].small,
+				input[type="reset"].small,
 				button.big,
 				.button.big {
 					font-size: 1.5em;
