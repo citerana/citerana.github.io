@@ -1,64 +1,65 @@
-/*
-	Miniport by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+jQuery(document).ready(function($) {
 
-(function($) {
 
-	skel
-		.breakpoints({
-			desktop: '(min-width: 737px)',
-			tablet: '(min-width: 737px) and (max-width: 1200px)',
-			mobile: '(max-width: 736px)'
-		})
-		.viewport({
-			breakpoints: {
-				tablet: {
-					width: 1080
-				}
-			}
-		});
+    /*======= Skillset *=======*/
+    
+    $('.level-bar-inner').css('width', '0');
+    
+    $(window).on('load', function() {
 
-	$(function() {
+        $('.level-bar-inner').each(function() {
+        
+            var itemWidth = $(this).data('level');
+            
+            $(this).animate({
+                width: itemWidth
+            }, 800);
+            
+        });
 
-		var	$window = $(window),
-			$body = $('body');
+    });
+    
+    /* Bootstrap Tooltip for Skillset */
+    $('.level-label').tooltip();
+    
+    
+    /* jQuery RSS - https://github.com/sdepold/jquery-rss */
+    
+    $("#rss-feeds").rss(
+    
+        //Change this to your own rss feeds
+        "http://feeds.feedburner.com/TechCrunch/startups",
+        
+        {
+        // how many entries do you want?
+        // default: 4
+        // valid values: any integer
+        limit: 3,
+        
+        // the effect, which is used to let the entries appear
+        // default: 'show'
+        // valid values: 'show', 'slide', 'slideFast', 'slideSynced', 'slideFastSynced'
+        effect: 'slideFastSynced',
+        
+        // outer template for the html transformation
+        // default: "<ul>{entries}</ul>"
+        // valid values: any string
+        layoutTemplate: "<div class='item'>{entries}</div>",
+        
+        // inner template for each entry
+        // default: '<li><a href="{url}">[{author}@{date}] {title}</a><br/>{shortBodyPlain}</li>'
+        // valid values: any string
+        entryTemplate: '<h3 class="title"><a href="{url}" target="_blank">{title}</a></h3><div><p>{shortBodyPlain}</p><a class="more-link" href="{url}" target="_blank"><i class="fa fa-external-link"></i>Read more</a></div>'
+        
+        }
+    );
+    
+    /* Github Calendar - https://github.com/IonicaBizau/github-calendar */
+    GitHubCalendar("#github-graph", "IonicaBizau");
+    
+    
+    /* Github Activity Feed - https://github.com/caseyscarborough/github-activity */
+    GitHubActivity.feed({ username: "caseyscarborough", selector: "#ghfeed" });
 
-		// Disable animations/transitions until the page has loaded.
-			$body.addClass('is-loading');
 
-			$window.on('load', function() {
-				$body.removeClass('is-loading');
-			});
-
-		// Fix: Placeholder polyfill.
-			$('form').placeholder();
-
-		// Prioritize "important" elements on mobile.
-			skel.on('+mobile -mobile', function() {
-				$.prioritize(
-					'.important\\28 mobile\\29',
-					skel.breakpoint('mobile').active
-				);
-			});
-
-		// CSS polyfills (IE<9).
-			if (skel.vars.IEVersion < 9)
-				$(':last-child').addClass('last-child');
-
-		// Scrolly.
-			$window.load(function() {
-
-				var x = parseInt($('.wrapper').first().css('padding-top')) - 15;
-
-				$('#nav a, .scrolly').scrolly({
-					speed: 1000,
-					offset: x
-				});
-
-			});
-
-	});
-
-})(jQuery);
+});
